@@ -11,6 +11,13 @@ import (
 func main() {
 	started := time.Now()
 
+	for {
+		if _, err := os.Stat("/dev/ttyUSB0"); !os.IsNotExist(err) {
+			break
+		}
+		time.Sleep(5 * time.Second)
+	}
+
 	terminate := make(chan string)
 
 	go wvdial(terminate)
